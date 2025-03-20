@@ -176,6 +176,9 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                                 tint = Color(0xFF7D3AB7)
                             )
                         },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                        ),
                         modifier = Modifier
                             .padding(bottom = 25.dp)
                             .width(300.dp),
@@ -193,6 +196,9 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                                 tint = Color(0xFF7D3AB7)
                             )
                         },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                        ),
                         modifier = Modifier
                             .width(300.dp)
                             .padding(bottom = 25.dp),
@@ -210,6 +216,9 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                                 tint = Color(0xFF7D3AB7)
                             )
                         },
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                        ),
                         modifier = Modifier
                             .width(300.dp)
                             .padding(bottom = 80.dp),

@@ -6,8 +6,11 @@
     <string name="hi">Salut!</string>
     <string name="male">Masculin</string>
     <string name="female">féminin</string>
-    <string name="age">Âge:</string>
+    <string name="age">Âge</string>
     <string name="weight">Poids</string>
     <string name="height">Taille</string>
     <string name="calculate">Calculer</string>
+    <string name="result">Votre résultat d\'IMC</string>
+    <string name="obesity">Vous avez une obésité de classe I</string>
+    <string name="new_calc"> Nouveau calcul</string>
 </resources>
