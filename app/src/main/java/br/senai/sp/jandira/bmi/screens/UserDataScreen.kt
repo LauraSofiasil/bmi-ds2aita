@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,52 +15,52 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AllInclusive
 import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Cake
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Label
-import androidx.compose.material3.LeadingIconTab
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RenderEffect
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun UserDataScreen (modifier: Modifier = Modifier) {
+fun UserDataScreen(navegacao: NavHostController?) {
 
     var ageState = remember{
-        mutableStateOf(value = "Age")
+        mutableStateOf(value = "")
     }
     var weightState = remember {
-        mutableStateOf(value = "Weight")
+        mutableStateOf(value = "")
     }
 
     var heightState = remember {
-        mutableStateOf(value = "Height")
+        mutableStateOf(value = "")
     }
+
+    //Abrir ou fechar um arquivo do tipo SharedPreferences
+    val context = LocalContext.current
+    val userFile = context.getSharedPreferences("user_file", Context.MODE_PRIVATE)
+    val editor = userFile.edit()
+    val userName = userFile.getString("user_name", "")
 
     Box(
         modifier = Modifier
@@ -80,8 +81,7 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = stringResource(
-                    br.senai.sp.jandira.bmi.R.string.hi
-                ),
+                    br.senai.sp.jandira.bmi.R.string.hi) + ", $userName!",
                 fontSize = 40.sp,
                 modifier = Modifier
                     .padding(top = 50.dp)
@@ -176,6 +176,13 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                                 tint = Color(0xFF7D3AB7)
                             )
                         },
+                        label = {
+                            Text(
+                                text = stringResource(
+                                    R.string.age
+                                )
+                            )
+                        },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number,
                         ),
@@ -194,6 +201,13 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                                 imageVector = Icons.Default.Balance,
                                 contentDescription = "",
                                 tint = Color(0xFF7D3AB7)
+                            )
+                        },
+                        label = {
+                            Text(
+                                text = stringResource(
+                                    R.string.weight
+                                )
                             )
                         },
                         keyboardOptions = KeyboardOptions(
@@ -216,6 +230,13 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                                 tint = Color(0xFF7D3AB7)
                             )
                         },
+                        label = {
+                            Text(
+                                text = stringResource(
+                                    R.string.height
+                                )
+                            )
+                        },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number,
                         ),
@@ -225,7 +246,13 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
                         shape = RoundedCornerShape(12.dp)
                     )
                     Button(
-                        onClick = {},
+                        onClick = {
+                            editor.putInt("user_age", ageState.value.toInt())
+                            editor.putFloat("user_weight", weightState.value.toFloat())
+                            editor.putFloat("user_height", heightState.value.toFloat())
+                            editor.apply()
+                            navegacao?.navigate("bmi_result")
+                        },
                         modifier = Modifier
                             .width(300.dp),
                         shape = RoundedCornerShape(12.dp),
@@ -250,5 +277,5 @@ fun UserDataScreen (modifier: Modifier = Modifier) {
 @Preview(showSystemUi = true)
 @Composable
 private fun UserDataScreenPreview(){
-    UserDataScreen()
+    UserDataScreen(null)
 }
