@@ -44,9 +44,9 @@ fun BMIResultScreen(navegacao: NavHostController?) {
 
     val context = LocalContext.current
     val userFile = context.getSharedPreferences("user_file", Context.MODE_PRIVATE)
-    val userAge = userFile.getInt("user_name", 0)
-    val userWeight = userFile.getFloat("user_name", 0.0f)
-    val userHeight = userFile.getFloat("user_name", 0.0f)
+    val userAge = userFile.getInt("user_age", 0)
+    val userWeight = userFile.getFloat("user_weight", 0.0f)
+    val userHeight = userFile.getFloat("user_height", 0.0f)
 
     Box(
         modifier = Modifier

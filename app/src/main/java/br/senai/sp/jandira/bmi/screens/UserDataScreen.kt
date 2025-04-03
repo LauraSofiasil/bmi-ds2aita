@@ -250,7 +250,7 @@ fun UserDataScreen(navegacao: NavHostController?) {
                             editor.putInt("user_age", ageState.value.toInt())
                             editor.putFloat("user_weight", weightState.value.toFloat())
                             editor.putFloat("user_height", heightState.value.toFloat())
-                            editor.apply()
+                            editor.apply() //Pode salvar
                             navegacao?.navigate("bmi_result")
                         },
                         modifier = Modifier
