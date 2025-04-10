@@ -24,8 +24,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -38,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import br.senai.sp.jandira.bmi.calcs.bmiCalculate
+import br.senai.sp.jandira.bmi.utils.numberConvertToLocale
 
 @Composable
 fun BMIResultScreen(navegacao: NavHostController?) {
@@ -47,6 +47,12 @@ fun BMIResultScreen(navegacao: NavHostController?) {
     val userAge = userFile.getInt("user_age", 0)
     val userWeight = userFile.getFloat("user_weight", 0.0f)
     val userHeight = userFile.getFloat("user_height", 0.0f)
+
+    //Obter os dados do imc do usuário
+    var result = bmiCalculate(
+        userWeight.toInt(),
+        userHeight.toDouble().div(100)
+    )
 
     Box(
         modifier = Modifier
@@ -101,12 +107,7 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                         shape = CircleShape,
                         border = BorderStroke(
                             width = 7.dp,
-                            brush = Brush.horizontalGradient(
-                                listOf(
-                                    Color(color = 0xff7d3ab7),
-                                    Color(color = 0xFF9C27B0)
-                                )
-                            )
+                            color = result.color
                         )
                     ) {
                         Column(
@@ -116,18 +117,16 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                             verticalArrangement = Arrangement.Center
                         ){
                             Text(
-                                text = "30,6",
+                                text = numberConvertToLocale(result.bmi.second),
                                 fontSize = 40.sp,
-                                color = Color(0xff7d3ab7),
+                                color = result.color,
                                 fontWeight = FontWeight.Bold
                             )
                         }
 
                     }
                     Text(
-                        text = stringResource(
-                            R.string.obesity
-                        ),
+                        text = result.bmi.first,
                         fontSize = 20.sp,
                         color = Color(0xff000000),
                         modifier = Modifier
@@ -203,7 +202,7 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                             ){
                                 Text(
                                     text = stringResource(
-                                        R.string.age
+                                        R.string.height
                                     ),
                                     fontSize = 25.sp
                                 )

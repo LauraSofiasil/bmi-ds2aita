@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -183,13 +184,14 @@ fun UserDataScreen(navegacao: NavHostController?) {
                                 )
                             )
                         },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number,
-                        ),
                         modifier = Modifier
                             .padding(bottom = 25.dp)
                             .width(300.dp),
                         shape = RoundedCornerShape(12.dp),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        )
                     )
                     OutlinedTextField(
                         value = weightState.value,
@@ -210,13 +212,14 @@ fun UserDataScreen(navegacao: NavHostController?) {
                                 )
                             )
                         },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number,
-                        ),
                         modifier = Modifier
                             .width(300.dp)
                             .padding(bottom = 25.dp),
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(12.dp),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        )
                     )
                     OutlinedTextField(
                         value = heightState.value,
@@ -237,13 +240,14 @@ fun UserDataScreen(navegacao: NavHostController?) {
                                 )
                             )
                         },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number,
-                        ),
                         modifier = Modifier
                             .width(300.dp)
                             .padding(bottom = 80.dp),
-                        shape = RoundedCornerShape(12.dp)
+                        shape = RoundedCornerShape(12.dp),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Done
+                        )
                     )
                     Button(
                         onClick = {
