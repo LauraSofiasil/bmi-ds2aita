@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +38,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 import br.senai.sp.jandira.bmi.calcs.bmiCalculate
+import br.senai.sp.jandira.bmi.model.BMIStatus
+import br.senai.sp.jandira.bmi.screens.components.BmiLevels
 import br.senai.sp.jandira.bmi.utils.numberConvertToLocale
 
 @Composable
@@ -219,9 +222,45 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                         modifier = Modifier
                             .padding(top = 10.dp)
                             .fillMaxWidth()
-                            .height(270.dp)
-                            .background(Color.Gray)
-                    ) {  }
+                            .background(Color.Transparent)
+                    ) {
+                        BmiLevels(
+                            leftText = stringResource(R.string.under),
+                            rightText = "<18.5",
+                            bulletColor = colorResource(R.color.light_blue),
+                            backgrounds = if(result.status == BMIStatus.UNDER_WEIGHT) colorResource(R.color.light_blue) else Color.Transparent
+                        )
+                        BmiLevels(
+                            leftText = stringResource(R.string.normal),
+                            rightText = "18.6 - 24.9",
+                            bulletColor = colorResource(R.color.light_green),
+                            backgrounds = if(result.status == BMIStatus.NORMAL) colorResource(R.color.light_green) else Color.Transparent
+                        )
+                        BmiLevels(
+                            leftText = stringResource(R.string.over),
+                            rightText = "25.0 - 29.9",
+                            bulletColor = colorResource(R.color.yellow),
+                            backgrounds = if(result.status == BMIStatus.OVER_WEIGHT) colorResource(R.color.yellow) else Color.Transparent
+                        )
+                        BmiLevels(
+                            leftText = stringResource(R.string.class1),
+                            rightText = "30.0 - 34.9",
+                            bulletColor = colorResource(R.color.light_orange),
+                            backgrounds = if(result.status == BMIStatus.OBESITY_1) colorResource(R.color.light_orange) else Color.Transparent
+                        )
+                        BmiLevels(
+                            leftText = stringResource(R.string.class2),
+                            rightText = "35.0 - 39.9",
+                            bulletColor = colorResource(R.color.dark_orange),
+                            backgrounds = if(result.status == BMIStatus.OBESITY_2) colorResource(R.color.dark_orange) else Color.Transparent
+                        )
+                        BmiLevels(
+                            leftText = stringResource(R.string.class3),
+                            rightText = ">39.9",
+                            bulletColor = colorResource(R.color.light_red),
+                            backgrounds = if(result.status == BMIStatus.OBESITY_3) colorResource(R.color.light_red) else Color.Transparent
+                        )
+                    }
                     HorizontalDivider(
                         modifier = Modifier
                             .padding(top = 10.dp)
